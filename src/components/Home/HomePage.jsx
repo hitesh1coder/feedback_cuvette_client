@@ -8,16 +8,18 @@ import RegisterModel from "../Models/RegisterModel/RegisterModel";
 import LoginModel from "../Models/LoginModel/LoginModel";
 import AddProductModel from "../Models/AddProductModel/AddProductModel";
 import axios from "axios";
+import UpdateProductModal from "../Models/UpdateProduct/UpdateProductModal";
 
 const HomePage = () => {
   const [registerModel, setRegisterModel] = useState(false);
+
   const [loginModel, setLoginModel] = useState(false);
   const [addProductModel, setAddProductModel] = useState(false);
   const [products, setProducts] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("All");
   const [usercomment, setUsercomment] = useState("");
   const [uservote, setUservote] = useState(0);
-  const [showComments, setShowComments] = useState(false);
+
   const [selectedSortValue, setSelectedSortValue] = useState("Upvote");
 
   const handleSelectChange = (event) => {
@@ -37,11 +39,7 @@ const HomePage = () => {
   const handleChildData = (data) => {
     setSelectedFilter(data);
   };
-  const handleShowComments = (id) => {
-    const product = products.filter((product) => product._id === id);
-    console.log(product[0]);
-    setShowComments((current) => !current);
-  };
+
   const closeRegisterModel = () => setRegisterModel(false);
   const closeLoginModel = () => setLoginModel(false);
   const closeAddProductModel = () => setAddProductModel(false);
@@ -86,15 +84,12 @@ const HomePage = () => {
             setUsercomment={setUsercomment}
             uservote={uservote}
             setUservote={setUservote}
-            showComments={showComments}
-            setShowComments={setShowComments}
             selectedSortValue={selectedSortValue}
             setSelectedSortValue={setSelectedSortValue}
             handleSelectChange={handleSelectChange}
             products={products}
             setRegisterModel={setRegisterModel}
             setAddProductModel={setAddProductModel}
-            handleShowComments={handleShowComments}
           />
           {addProductModel && (
             <AddProductModel closeAddProductModel={closeAddProductModel} />

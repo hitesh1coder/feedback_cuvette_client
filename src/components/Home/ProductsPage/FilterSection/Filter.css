@@ -35,6 +35,10 @@
   color: #fff;
   background-color: #36416a;
 }
+.selected {
+  color: #fff;
+  background-color: #36416a;
+}
 
 /* Responcive code  */
 @media only screen and (max-width: 470px) {

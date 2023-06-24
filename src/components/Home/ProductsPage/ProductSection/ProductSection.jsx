@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./ProductSection.css";
-import compnyLogo from "../../../../images/capany2.png";
 import showcommentIcon from "../../../../images/addcomment.png";
 import sendIcon from "../../../../images/send.png";
 import upIcon from "../../../../images/up.png";
 import commentIcon from "../../../../images/comment.png";
+import editIcon from "../../../../images/icons8-edit-50.png";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
+import UpdateProductModal from "../../../Models/UpdateProduct/UpdateProductModal";
 
 const ProductSection = ({
   products,
@@ -14,12 +16,25 @@ const ProductSection = ({
   usercomment,
   setUsercomment,
   setUservote,
-  showComments,
-  handleShowComments,
   selectedSortValue,
   handleSelectChange,
 }) => {
+  const [updateProductModel, setUpdateProductModel] = useState(false);
+  const [updateProductData, setUpdateProductData] = useState([]);
+  const [showComments, setShowComments] = useState(null);
   const user = JSON.parse(localStorage.getItem("feedback_user"));
+
+  const closeUpdateProductModel = () => setUpdateProductModel(false);
+  const handleEdit = async (id) => {
+    try {
+      const result = await axios.get(`http://localhost:5000/product/${id}`);
+      const { data } = result;
+      setUpdateProductData(data);
+    } catch (error) {
+      console.log(error);
+    }
+    user ? setUpdateProductModel(true) : setRegisterModel(true);
+  };
 
   const handleSendComment = async (id) => {
     try {
@@ -48,6 +63,12 @@ const ProductSection = ({
   };
   return (
     <>
+      {updateProductModel && (
+        <UpdateProductModal
+          updateProductData={updateProductData}
+          closeUpdateProductModel={closeUpdateProductModel}
+        />
+      )}
       <div className="productpage_wrapper">
         <div className="options">
           <p>{products.length} suggestions</p>
@@ -94,7 +115,13 @@ const ProductSection = ({
 
                         <span
                           className="comment_btn"
-                          onClick={() => handleShowComments(product._id)}
+                          onClick={() =>
+                            setShowComments((showCommentBox) =>
+                              showCommentBox === product._id
+                                ? null
+                                : product._id
+                            )
+                          }
                         >
                           <img src={showcommentIcon} alt="showcomment" />
                           <span>Comment</span>
@@ -116,41 +143,49 @@ const ProductSection = ({
                         <p>{product?.usercomment?.length}</p>
                         <img src={commentIcon} alt="comment" />
                       </div>
+                      <div className="edit">
+                        <img src={editIcon} alt="edit" />
+                        <span onClick={() => handleEdit(product._id)}>
+                          edit
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div
-                    className={
-                      showComments
-                        ? "comment_section show"
-                        : " comment_section hide"
-                    }
-                  >
-                    <div className="input_div">
-                      <input
-                        type="text"
-                        name="usercomment"
-                        placeholder="Add a Comment..."
-                        className="comment_input"
-                        value={usercomment}
-                        onChange={(e) => setUsercomment(e.target.value)}
-                      />
-                      <img
-                        className="send_btn"
-                        src={sendIcon}
-                        onClick={() => handleSendComment(product._id)}
-                        alt="send"
-                      />
+                  {showComments === product._id && (
+                    <div
+                      className={
+                        showComments
+                          ? "comment_section show"
+                          : " comment_section hide"
+                      }
+                    >
+                      <div className="input_div">
+                        <input
+                          type="text"
+                          name="usercomment"
+                          placeholder="Add a Comment..."
+                          className="comment_input"
+                          value={usercomment}
+                          onChange={(e) => setUsercomment(e.target.value)}
+                        />
+                        <img
+                          className="send_btn"
+                          src={sendIcon}
+                          onClick={() => handleSendComment(product._id)}
+                          alt="send"
+                        />
+                      </div>
+                      <div className="comments_div">
+                        {product?.usercomment?.map((comment, i) => {
+                          return (
+                            <li key={i}>
+                              <p>{comment}</p>
+                            </li>
+                          );
+                        })}
+                      </div>
                     </div>
-                    <div className="comments_div">
-                      {product?.usercomment?.map((comment, i) => {
-                        return (
-                          <li key={i}>
-                            <p>{comment}</p>
-                          </li>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  )}
                 </div>
               );
             })}

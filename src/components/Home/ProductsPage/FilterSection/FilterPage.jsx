@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Filter.css";
 
 const FilterPage = ({ techFields, onGetFilterValue }) => {
-  const handleSelectTeck = (data) => {
+  const [selectedId, setSelectedId] = useState(0);
+  const handleSelectTeck = (data, id) => {
     onGetFilterValue(data);
+    setSelectedId(id);
   };
+  const getSelectedClass = (id) => (selectedId === id ? "selected" : "");
 
   return (
     <div className="filter_main_wrapper">
@@ -19,9 +22,9 @@ const FilterPage = ({ techFields, onGetFilterValue }) => {
               <p
                 key={i}
                 onClick={() => {
-                  handleSelectTeck(option);
+                  handleSelectTeck(option, i);
                 }}
-                className="filter"
+                className={`filter ${getSelectedClass(i)}`}
               >
                 {option}
               </p>
