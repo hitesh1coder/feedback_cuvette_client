@@ -30,7 +30,7 @@ const Login = () => {
         };
         const { email, password } = formValue;
         const user = await axios.post(
-          "http://localhost:5000/login",
+          "https://feedback-cuvette-server.onrender.com/login",
           { email, password },
           config
         );

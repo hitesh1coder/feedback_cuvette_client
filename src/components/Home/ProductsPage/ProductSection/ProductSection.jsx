@@ -13,6 +13,7 @@ const ProductSection = ({
   products,
   setAddProductModel,
   setRegisterModel,
+  setLoginModel,
   usercomment,
   setUsercomment,
   setUservote,
@@ -27,7 +28,9 @@ const ProductSection = ({
   const closeUpdateProductModel = () => setUpdateProductModel(false);
   const handleEdit = async (id) => {
     try {
-      const result = await axios.get(`http://localhost:5000/product/${id}`);
+      const result = await axios.get(
+        `https://feedback-cuvette-server.onrender.com/${id}`
+      );
       const { data } = result;
       setUpdateProductData(data);
     } catch (error) {
@@ -69,6 +72,7 @@ const ProductSection = ({
           closeUpdateProductModel={closeUpdateProductModel}
         />
       )}
+
       <div className="productpage_wrapper">
         <div className="options">
           <p>{products.length} suggestions</p>

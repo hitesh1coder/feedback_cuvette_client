@@ -6,13 +6,19 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import RegisterModel from "../RegisterModel/RegisterModel";
 
 const LoginModel = ({ closeLoginModel }) => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
+  const [registerModel, setRegisterModel] = useState(false);
+  const handleClose = () => {
+    setRegisterModel(true);
+  };
+
+  const closeRegisterModel = () => setRegisterModel(false);
   const [error, setError] = useState(false);
   const handleChange = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
@@ -29,7 +35,7 @@ const LoginModel = ({ closeLoginModel }) => {
         };
         const { email, password } = formValue;
         const user = await axios.post(
-          "http://localhost:5000/login",
+          "https://feedback-cuvette-server.onrender.com/login",
           { email, password },
           config
         );
@@ -80,6 +86,9 @@ const LoginModel = ({ closeLoginModel }) => {
         theme="light"
       />
       <div className="login_model">
+        {registerModel && (
+          <RegisterModel closeRegisterModel={closeRegisterModel} />
+        )}
         <div className="login_model_form_section">
           <div className="login_model_form">
             <h1>Login to Continue</h1>
@@ -110,7 +119,7 @@ const LoginModel = ({ closeLoginModel }) => {
               {error ? "* all fields required in the form" : ""}
             </p>
             <p>
-              Don't have an account ? <Link to="/register">Sign Up</Link>
+              Don't have an account ? <Link onClick={handleClose}>Sign Up</Link>
             </p>
             <button className="signin_model_btn" onClick={handleSubmit}>
               Log In

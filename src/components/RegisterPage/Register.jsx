@@ -38,7 +38,7 @@ const Register = () => {
         };
         const { name, email, mobile, password } = formValue;
         const user = await axios.post(
-          "http://localhost:5000/register",
+          "https://feedback-cuvette-server.onrender.com/register",
           { name, email, mobile, password },
           config
         );

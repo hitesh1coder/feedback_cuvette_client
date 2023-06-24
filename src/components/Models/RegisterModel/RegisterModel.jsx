@@ -7,7 +7,8 @@ import passwordIcon from "../../../images/Vector (6).png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import LoginModel from "../LoginModel/LoginModel";
+import { Link } from "react-router-dom";
 
 const RegisterModel = ({ closeRegisterModel }) => {
   const [formValue, setFormValue] = useState({
@@ -16,11 +17,17 @@ const RegisterModel = ({ closeRegisterModel }) => {
     mobile: "",
     password: "",
   });
-  const navigate = useNavigate();
+  const [loginModel, setLoginModel] = useState(false);
+
+  const handleClose = () => {
+    setLoginModel(true);
+  };
   const [error, setError] = useState(false);
   const handleChange = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
+
+  const closeLoginModel = () => setLoginModel(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -38,7 +45,7 @@ const RegisterModel = ({ closeRegisterModel }) => {
         };
         const { name, email, mobile, password } = formValue;
         const user = await axios.post(
-          "http://localhost:5000/register",
+          "https://feedback-cuvette-server.onrender.com/register",
           { name, email, mobile, password },
           config
         );
@@ -107,6 +114,7 @@ const RegisterModel = ({ closeRegisterModel }) => {
         theme="light"
       />
       <div className="register_model">
+        {loginModel && <LoginModel closeLoginModel={closeLoginModel} />}
         <div className="register_model_form_section">
           <div className="register_model_form">
             <h1>SignUp to Continue</h1>
@@ -158,7 +166,8 @@ const RegisterModel = ({ closeRegisterModel }) => {
               {error ? "* all fields required in the form" : ""}
             </p>
             <p>
-              Already have an account ? <a href="">Log In</a>
+              Already have an account ?{" "}
+              <Link onClick={handleClose}>Log In</Link>
             </p>
             <button className="signup_model_btn" onClick={handleSubmit}>
               Singup

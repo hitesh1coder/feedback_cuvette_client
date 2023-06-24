@@ -42,7 +42,7 @@ const AddProductModel = ({ closeAddProductModel }) => {
         const { companyname, category, logourl, productdesc, productlink } =
           formValue;
         const user = await axios.post(
-          "http://localhost:5000/add-product",
+          "https://feedback-cuvette-server.onrender.com/add-product",
           { companyname, category, logourl, productdesc, productlink },
           config
         );

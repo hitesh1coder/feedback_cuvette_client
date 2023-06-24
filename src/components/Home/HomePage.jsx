@@ -8,11 +8,9 @@ import RegisterModel from "../Models/RegisterModel/RegisterModel";
 import LoginModel from "../Models/LoginModel/LoginModel";
 import AddProductModel from "../Models/AddProductModel/AddProductModel";
 import axios from "axios";
-import UpdateProductModal from "../Models/UpdateProduct/UpdateProductModal";
 
 const HomePage = () => {
   const [registerModel, setRegisterModel] = useState(false);
-
   const [loginModel, setLoginModel] = useState(false);
   const [addProductModel, setAddProductModel] = useState(false);
   const [products, setProducts] = useState([]);
@@ -46,12 +44,15 @@ const HomePage = () => {
 
   const fetchAllproducts = async () => {
     try {
-      const AllProducts = await axios.get(`http://localhost:5000/products`, {
-        params: {
-          category: selectedFilter,
-          sortorder: selectedSortValue,
-        },
-      });
+      const AllProducts = await axios.get(
+        `https://feedback-cuvette-server.onrender.com/products`,
+        {
+          params: {
+            category: selectedFilter,
+            sortorder: selectedSortValue,
+          },
+        }
+      );
       const { data } = AllProducts;
       setProducts(data);
     } catch (err) {
@@ -89,6 +90,7 @@ const HomePage = () => {
             handleSelectChange={handleSelectChange}
             products={products}
             setRegisterModel={setRegisterModel}
+            setLoginModel={setLoginModel}
             setAddProductModel={setAddProductModel}
           />
           {addProductModel && (
