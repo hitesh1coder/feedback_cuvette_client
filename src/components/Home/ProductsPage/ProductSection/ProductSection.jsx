@@ -42,7 +42,7 @@ const ProductSection = ({
   const handleSendComment = async (id) => {
     try {
       const sendComment = await axios.post(
-        `http://localhost:5000/product/add-comment/${id}`,
+        `https://feedback-cuvette-server.onrender.com/product/add-comment/${id}`,
         {
           usercomment,
         }
@@ -53,11 +53,13 @@ const ProductSection = ({
     }
   };
   const handleUserVote = async (id) => {
-    const product = await axios.get(`http://localhost:5000/product/${id}`);
+    const product = await axios.get(
+      `https://feedback-cuvette-server.onrender.com/product/${id}`
+    );
     const votes = product.data.uservote;
     try {
       const sendUpvote = await axios.post(
-        `http://localhost:5000/product/add-like/${id}`
+        `https://feedback-cuvette-server.onrender.com/product/add-like/${id}`
       );
       setUservote(votes + 1);
     } catch (error) {

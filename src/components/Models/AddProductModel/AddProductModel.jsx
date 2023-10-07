@@ -17,7 +17,8 @@ const AddProductModel = ({ closeAddProductModel }) => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem("feedback_user"));
+  const user = JSON.parse(localStorage.getItem("swipetory_user"));
+  console.log(user);
   const token = user.token;
 
   const handleChange = (e) => {
