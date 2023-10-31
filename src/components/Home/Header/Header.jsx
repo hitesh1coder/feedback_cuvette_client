@@ -13,7 +13,7 @@ const Header = ({ setRegisterModel, setLoginModel }) => {
   return (
     <header className="header">
       <div className="logo">
-        <h2>FeedBack</h2>
+        <h2>Feedback</h2>
       </div>
       {user ? (
         <div className="user_info">

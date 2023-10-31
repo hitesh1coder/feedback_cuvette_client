@@ -16,7 +16,7 @@
   padding: 0 1rem;
   margin-bottom: 1rem;
   align-items: center;
-  z-index: 2;
+  z-index: 0;
 }
 .sorting {
   display: flex;
@@ -57,9 +57,11 @@
 .main_div {
   background-color: rgba(54, 65, 106, 0.15);
   margin: 0.5rem 0;
+  box-shadow: -1px 3px 10px rgba(0, 0, 0, 0.4);
 }
 .product_div {
   display: flex;
+  box-shadow: 1px 1px 5px rgba(54, 65, 106, 0.15);
 }
 .product_logo_container,
 .product_details_container,
@@ -138,9 +140,9 @@
 }
 .comments {
   height: 3rem;
-  width: 2rem;
+  width: 3rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   font-weight: bold;
 }
@@ -156,6 +158,8 @@
 }
 .edit span {
   cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 800;
 }
 .comment_section {
   padding: 1rem;

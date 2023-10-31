@@ -30,7 +30,7 @@ const Login = () => {
         };
         const { email, password } = formValue;
         const user = await axios.post(
-          "https://feedback-cuvette-server.onrender.com/login",
+          `${import.meta.env.VITE_SERVER_HOST}/login`,
           { email, password },
           config
         );

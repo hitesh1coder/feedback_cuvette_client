@@ -35,7 +35,7 @@ const LoginModel = ({ closeLoginModel }) => {
         };
         const { email, password } = formValue;
         const user = await axios.post(
-          "https://feedback-cuvette-server.onrender.com/login",
+          `${import.meta.env.VITE_SERVER_HOST}/login`,
           { email, password },
           config
         );
@@ -54,6 +54,7 @@ const LoginModel = ({ closeLoginModel }) => {
         });
         setTimeout(() => {
           closeLoginModel();
+          closeRegisterModel();
         }, 3000);
       } catch (error) {
         console.log(error.response);

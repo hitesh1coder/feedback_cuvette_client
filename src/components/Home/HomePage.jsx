@@ -45,7 +45,7 @@ const HomePage = () => {
   const fetchAllproducts = async () => {
     try {
       const AllProducts = await axios.get(
-        `https://feedback-cuvette-server.onrender.com/products`,
+        `${import.meta.env.VITE_SERVER_HOST}/products`,
         {
           params: {
             category: selectedFilter,
@@ -54,6 +54,7 @@ const HomePage = () => {
         }
       );
       const { data } = AllProducts;
+      console.log(AllProducts);
       setProducts(data);
     } catch (err) {
       console.error(err);
@@ -62,6 +63,7 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchAllproducts();
+    console.log("called");
   }, [selectedFilter, usercomment, uservote, selectedSortValue, registerModel]);
   return (
     <>

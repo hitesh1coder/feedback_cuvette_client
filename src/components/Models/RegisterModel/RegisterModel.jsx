@@ -45,7 +45,7 @@ const RegisterModel = ({ closeRegisterModel }) => {
         };
         const { name, email, mobile, password } = formValue;
         const user = await axios.post(
-          "https://feedback-cuvette-server.onrender.com/register",
+          `${import.meta.env.VITE_SERVER_HOST}/register`,
           { name, email, mobile, password },
           config
         );

@@ -29,7 +29,7 @@ const ProductSection = ({
   const handleEdit = async (id) => {
     try {
       const result = await axios.get(
-        `https://feedback-cuvette-server.onrender.com/${id}`
+        `${import.meta.env.VITE_SERVER_HOST}/${id}`
       );
       const { data } = result;
       setUpdateProductData(data);
@@ -42,7 +42,7 @@ const ProductSection = ({
   const handleSendComment = async (id) => {
     try {
       const sendComment = await axios.post(
-        `https://feedback-cuvette-server.onrender.com/product/add-comment/${id}`,
+        `${import.meta.env.VITE_SERVER_HOST}/product/add-comment/${id}`,
         {
           usercomment,
         }
@@ -54,12 +54,12 @@ const ProductSection = ({
   };
   const handleUserVote = async (id) => {
     const product = await axios.get(
-      `https://feedback-cuvette-server.onrender.com/product/${id}`
+      `${import.meta.env.VITE_SERVER_HOST}/product/${id}`
     );
     const votes = product.data.uservote;
     try {
       const sendUpvote = await axios.post(
-        `https://feedback-cuvette-server.onrender.com/product/add-like/${id}`
+        `${import.meta.env.VITE_SERVER_HOST}/product/add-like/${id}`
       );
       setUservote(votes + 1);
     } catch (error) {
@@ -96,7 +96,7 @@ const ProductSection = ({
           <button
             className="add_product_btn"
             onClick={() =>
-              user ? setAddProductModel(true) : setRegisterModel(true)
+              user ? setAddProductModel(true) : setLoginModel(true)
             }
           >
             + Add Product

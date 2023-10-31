@@ -42,7 +42,7 @@ const UpdateProductModal = ({ closeUpdateProductModel, updateProductData }) => {
         const { companyname, category, logourl, productdesc, productlink } =
           formValue;
         const updatedJob = await axios.put(
-          `https://feedback-cuvette-server.onrender.com/product/update/${id}`,
+          `${import.meta.env.VITE_SERVER_HOST}/product/update/${id}`,
           { companyname, category, logourl, productdesc, productlink },
           config
         );

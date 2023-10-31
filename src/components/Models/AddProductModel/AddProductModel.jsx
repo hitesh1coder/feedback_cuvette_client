@@ -17,8 +17,9 @@ const AddProductModel = ({ closeAddProductModel }) => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem("swipetory_user"));
+  const user = JSON.parse(localStorage.getItem("feedback_user"));
   console.log(user);
+
   const token = user.token;
 
   const handleChange = (e) => {
@@ -43,7 +44,7 @@ const AddProductModel = ({ closeAddProductModel }) => {
         const { companyname, category, logourl, productdesc, productlink } =
           formValue;
         const user = await axios.post(
-          "https://feedback-cuvette-server.onrender.com/add-product",
+          `${import.meta.env.VITE_SERVER_HOST}/add-product`,
           { companyname, category, logourl, productdesc, productlink },
           config
         );
