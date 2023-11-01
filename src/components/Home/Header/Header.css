@@ -48,9 +48,15 @@
   border-radius: 0.3rem;
 }
 @media only screen and (max-width: 470px) {
+  .header {
+    padding: 0 1rem;
+  }
   .btns {
     display: flex;
     margin: 0;
+  }
+  .user_info {
+    gap: 0.4rem;
   }
   .login_btn,
   .signup_bt {
