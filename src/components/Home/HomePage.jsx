@@ -54,7 +54,6 @@ const HomePage = () => {
         }
       );
       const { data } = AllProducts;
-      console.log(AllProducts);
       setProducts(data);
     } catch (err) {
       console.error(err);
@@ -63,7 +62,6 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchAllproducts();
-    console.log("called");
   }, [selectedFilter, usercomment, uservote, selectedSortValue, registerModel]);
   return (
     <>

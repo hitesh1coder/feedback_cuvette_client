@@ -29,7 +29,7 @@ const ProductSection = ({
   const handleEdit = async (id) => {
     try {
       const result = await axios.get(
-        `${import.meta.env.VITE_SERVER_HOST}/${id}`
+        `${import.meta.env.VITE_SERVER_HOST}/product/${id}`
       );
       const { data } = result;
       setUpdateProductData(data);
@@ -147,7 +147,17 @@ const ProductSection = ({
                       </div>
                       <div className="comments">
                         <p>{product?.usercomment?.length}</p>
-                        <img src={commentIcon} alt="comment" />
+                        <img
+                          src={commentIcon}
+                          alt="comment"
+                          onClick={() =>
+                            setShowComments((showCommentBox) =>
+                              showCommentBox === product._id
+                                ? null
+                                : product._id
+                            )
+                          }
+                        />
                       </div>
                       <div className="edit">
                         <img src={editIcon} alt="edit" />

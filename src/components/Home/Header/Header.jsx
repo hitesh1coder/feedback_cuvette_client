@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.css";
-import UserAvatar from "../../../images/userAvator.jpg";
+import UserAvatar from "../../../images/user_avatar.jpg";
 import { useNavigate } from "react-router-dom";
 
 const Header = ({ setRegisterModel, setLoginModel }) => {
