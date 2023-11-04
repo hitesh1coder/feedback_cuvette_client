@@ -104,107 +104,112 @@ const ProductSection = ({
         </div>
         <div className="product_container">
           <div className="main">
-            {products?.map((product, i) => {
-              return (
-                <div className="main_div" key={i}>
-                  <div className="product_div">
-                    <div className="product_logo_container">
-                      <img src={product.logourl} alt="logo" />
-                    </div>
-                    <div className="product_details_container">
-                      <h2>{product.companyname}</h2>
-                      <p>{product.productdesc}</p>
-                      <div className="product_type">
-                        {product.categoryArray?.map((category, i) => {
-                          return <p key={i}>{category} </p>;
-                        })}
+            {products.length === 0 ? (
+              <h3 style={{ textAlign: "center" }}>Loading products...</h3>
+            ) : (
+              products?.map((product, i) => {
+                return (
+                  <div className="main_div" key={i}>
+                    <div className="product_div">
+                      <div className="product_logo_container">
+                        <img src={product.logourl} alt="logo" />
+                      </div>
+                      <div className="product_details_container">
+                        <h2>{product.companyname}</h2>
+                        <p>{product.productdesc}</p>
+                        <div className="product_type">
+                          {product.categoryArray?.map((category, i) => {
+                            return <p key={i}>{category} </p>;
+                          })}
 
-                        <span
-                          className="comment_btn"
-                          onClick={() =>
-                            setShowComments((showCommentBox) =>
-                              showCommentBox === product._id
-                                ? null
-                                : product._id
-                            )
-                          }
-                        >
-                          <img src={showcommentIcon} alt="showcomment" />
-                          <span>Comment</span>
-                        </span>
+                          <span
+                            className="comment_btn"
+                            onClick={() =>
+                              setShowComments((showCommentBox) =>
+                                showCommentBox === product._id
+                                  ? null
+                                  : product._id
+                              )
+                            }
+                          >
+                            <img src={showcommentIcon} alt="showcomment" />
+                            <span>Comment</span>
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="product_comment_vote_container">
-                      <div className="vote">
-                        <span>
+                      <div className="product_comment_vote_container">
+                        <div className="vote">
+                          <span>
+                            <img
+                              onClick={() => handleUserVote(product._id)}
+                              src={upIcon}
+                              alt="upvote"
+                            />
+                          </span>
+                          <p>{product?.uservote || 0}</p>
+                        </div>
+                        <div className="comments">
+                          <p>{product?.usercomment?.length}</p>
                           <img
-                            onClick={() => handleUserVote(product._id)}
-                            src={upIcon}
-                            alt="upvote"
+                            src={commentIcon}
+                            alt="comment"
+                            onClick={() =>
+                              setShowComments((showCommentBox) =>
+                                showCommentBox === product._id
+                                  ? null
+                                  : product._id
+                              )
+                            }
                           />
-                        </span>
-                        <p>{product?.uservote || 0}</p>
-                      </div>
-                      <div className="comments">
-                        <p>{product?.usercomment?.length}</p>
-                        <img
-                          src={commentIcon}
-                          alt="comment"
-                          onClick={() =>
-                            setShowComments((showCommentBox) =>
-                              showCommentBox === product._id
-                                ? null
-                                : product._id
-                            )
-                          }
-                        />
-                      </div>
-                      <div className="edit">
-                        <img src={editIcon} alt="edit" />
-                        <span onClick={() => handleEdit(product._id)}>
-                          edit
-                        </span>
+                        </div>
+                        <div
+                          className="edit"
+                          onClick={() => handleEdit(product._id)}
+                        >
+                          <img src={editIcon} alt="edit" />
+                          <span>edit</span>
+                        </div>
                       </div>
                     </div>
+                    {showComments === product._id && (
+                      <div
+                        className={
+                          showComments
+                            ? "comment_section show"
+                            : " comment_section hide"
+                        }
+                      >
+                        <div className="input_div">
+                          <input
+                            type="text"
+                            name="usercomment"
+                            placeholder="Add a Comment..."
+                            className="comment_input"
+                            value={usercomment}
+                            onChange={(e) => setUsercomment(e.target.value)}
+                          />
+                          <img
+                            className="send_btn"
+                            src={sendIcon}
+                            onClick={() => handleSendComment(product._id)}
+                            alt="send"
+                          />
+                        </div>
+                        <div className="comments_div">
+                          {product?.usercomment?.map((comment, i) => {
+                            return (
+                              <li key={i}>
+                                <p>{comment}</p>
+                              </li>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  {showComments === product._id && (
-                    <div
-                      className={
-                        showComments
-                          ? "comment_section show"
-                          : " comment_section hide"
-                      }
-                    >
-                      <div className="input_div">
-                        <input
-                          type="text"
-                          name="usercomment"
-                          placeholder="Add a Comment..."
-                          className="comment_input"
-                          value={usercomment}
-                          onChange={(e) => setUsercomment(e.target.value)}
-                        />
-                        <img
-                          className="send_btn"
-                          src={sendIcon}
-                          onClick={() => handleSendComment(product._id)}
-                          alt="send"
-                        />
-                      </div>
-                      <div className="comments_div">
-                        {product?.usercomment?.map((comment, i) => {
-                          return (
-                            <li key={i}>
-                              <p>{comment}</p>
-                            </li>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         </div>
       </div>

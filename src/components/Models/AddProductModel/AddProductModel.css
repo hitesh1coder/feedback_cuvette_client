@@ -62,7 +62,7 @@
 @media only screen and (max-width: 470px) {
   .product_model {
     width: 85vw;
-    height: 60vh;
+    height: 78vh;
     border-radius: 0.4rem;
   }
   .addproduct_form {
@@ -71,7 +71,7 @@
   .addproduct_model_btn {
     width: 90%;
     left: 1rem;
-    bottom: 6rem;
+    bottom: 4rem;
   }
   .model_banner2 {
     display: none;

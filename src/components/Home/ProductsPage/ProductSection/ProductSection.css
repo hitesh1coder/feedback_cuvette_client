@@ -153,12 +153,13 @@
   margin-top: 0.6rem;
   cursor: pointer;
 }
-
+.edit {
+  cursor: pointer;
+}
 .edit img {
   width: 1rem;
 }
 .edit span {
-  cursor: pointer;
   font-size: 0.9rem;
   font-weight: 800;
 }
